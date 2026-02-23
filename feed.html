@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Feed</title>
+    <meta name="description" content="RideGram - Ride · Connect · Explore. Your motorcycle social feed.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/feed.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+
+<body class="page-body">
+    <!-- TOP NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html" class="navbar-brand">
+                    <span class="navbar-logo"><i class="fas fa-motorcycle"></i> RideGram</span>
+                </a>
+                <div class="navbar-menu">
+                    <a href="feed.html" class="navbar-link active">Feed</a>
+                    <a href="explore.html" class="navbar-link">Explore</a>
+                    <a href="my-rides.html" class="navbar-link">Rides</a>
+                    <a href="create-ride.html" class="navbar-link" style="color:var(--primary);"><i
+                            class="fas fa-plus-circle"></i> Create</a>
+                    <a href="messages.html" class="navbar-link">Messages</a>
+                </div>
+                <div class="navbar-actions">
+                    <a href="notifications.html" class="btn btn-icon btn-ghost" style="position:relative;">
+                        <i class="fas fa-bell"></i>
+                        <span
+                            style="position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--primary);border-radius:50%;border:2px solid var(--bg-primary);"></span>
+                    </a>
+                    <a href="profile.html"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
+                            class="avatar avatar-sm" alt="Profile"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FEED CONTENT -->
+    <div class="container">
+        <div class="app-layout">
+            <!-- LEFT SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <!-- MAIN FEED -->
+            <main>
+                <!-- Stories -->
+                <section class="stories-section card" style="border-radius:var(--radius-xl);margin-bottom:8px;">
+                    <div class="stories-container" id="stories-container">
+                        <!-- Stories rendered by JS -->
+                    </div>
+                </section>
+
+                <!-- Upcoming Ride Card -->
+                <div class="card" style="margin:0 0 8px;border-radius:var(--radius-xl);overflow:hidden;">
+                    <div style="position:relative;">
+                        <img src="https://images.unsplash.com/photo-1558980664-769d59546b3d?w=600&h=300&fit=crop"
+                            style="width:100%;height:180px;object-fit:cover;" alt="Ladakh">
+                        <div
+                            style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);">
+                        </div>
+                        <div style="position:absolute;bottom:0;left:0;right:0;padding:14px;">
+                            <div
+                                style="font-size:10px;color:var(--primary);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">
+                                Upcoming Ride</div>
+                            <div style="font-size:var(--fs-xl);font-weight:800;margin-bottom:4px;">LADAKH Adventure 2025
+                            </div>
+                            <div
+                                style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-secondary);margin-bottom:10px;">
+                                <span><i class="fas fa-calendar" style="color:var(--primary);margin-right:4px;"></i> Jun
+                                    10
+                                    - Jun 25</span>
+                                <span><i class="fas fa-users" style="color:var(--primary);margin-right:4px;"></i> 8/12
+                                    spots</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <button class="btn btn-primary btn-sm"
+                                    onclick="showToast('Join request sent!','success')">Join Now</button>
+                                <div style="display:flex;align-items:center;gap:4px;">
+                                    <div
+                                        style="width:20px;height:20px;border-radius:50%;border:2px solid var(--bg-card);overflow:hidden;margin-left:-6px;">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40"
+                                            style="width:100%;height:100%;object-fit:cover;" alt="">
+                                    </div>
+                                    <div
+                                        style="width:20px;height:20px;border-radius:50%;border:2px solid var(--bg-card);overflow:hidden;margin-left:-6px;">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40"
+                                            style="width:100%;height:100%;object-fit:cover;" alt="">
+                                    </div>
+                                    <span style="font-size:11px;color:var(--text-muted);margin-left:4px;">+6
+                                        joined</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feed Posts -->
+                <div class="feed-posts" id="feed-posts">
+                    <!-- Posts rendered by JS -->
+                </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR (Desktop) -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Suggested Riders</h4>
+                        <a href="explore.html">See All</a>
+                    </div>
+                    <div id="suggestions-list"></div>
+                </div>
+                <div class="trending-section">
+                    <div class="suggestions-header">
+                        <h4>Trending</h4>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="trending-icon"><i class="fas fa-fire"></i></div>
+                        <div class="trending-info">
+                            <h5>#LadakhDiaries</h5><span>2.1k posts</span>
+                        </div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="trending-icon"><i class="fas fa-mountain"></i></div>
+                        <div class="trending-info">
+                            <h5>#WesternGhats</h5><span>1.8k posts</span>
+                        </div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="trending-icon"><i class="fas fa-moon"></i></div>
+                        <div class="trending-info">
+                            <h5>#NightRides</h5><span>945 posts</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item" style="position:relative;">
+                <i class="fas fa-bell"></i><span>Alerts</span>
+                <span class="bottom-nav-badge">3</span>
+            </a>
+            <a href="profile.html" class="bottom-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+        </div>
+    </nav>
+
+    <!-- JOIN RIDE MODAL -->
+    <div class="modal-overlay" id="join-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">Join Ride</span>
+                <button class="modal-close" onclick="closeModal('join-modal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="join-modal-content">
+                    <div class="join-modal-icon"><i class="fas fa-motorcycle"></i></div>
+                    <h3 class="join-modal-title" id="join-modal-ride-title">Ride Title</h3>
+                    <p class="join-modal-text">Send a join request to the ride creator. They'll review your profile and
+                        riding history.</p>
+                    <div class="join-modal-ride" id="join-modal-ride-info"></div>
+                    <div class="join-modal-actions">
+                        <button class="btn btn-secondary" onclick="closeModal('join-modal')">Cancel</button>
+                        <button class="btn btn-primary" onclick="confirmJoinRequest()"><i
+                                class="fas fa-paper-plane"></i> Send Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/feed.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>

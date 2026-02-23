@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Settings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <style>
+        .settings-page {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 0 70px;
+        }
+
+        .settings-section {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .settings-section-title {
+            font-size: var(--fs-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            font-weight: var(--fw-semibold);
+            margin-bottom: 12px;
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 0;
+        }
+
+        .settings-item-info {
+            flex: 1;
+        }
+
+        .settings-item-label {
+            font-size: var(--fs-sm);
+            font-weight: var(--fw-medium);
+            margin-bottom: 2px;
+        }
+
+        .settings-item-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .settings-item i {
+            color: var(--text-muted);
+            font-size: 14px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .settings-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: color var(--transition);
+        }
+
+        .settings-link:hover {
+            color: var(--primary);
+        }
+
+        .settings-link .link-arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .settings-danger {
+            color: #EF4444 !important;
+        }
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <div class="notif-header"
+                    style="display:flex; justify-content:space-between; align-items:center; padding: 16px; border-bottom: 1px solid var(--border);">
+                    <h2 style="font-size:var(--fs-lg); font-weight:var(--fw-bold);">Settings</h2>
+                    <span></span>
+                </div>
+                <div class="settings-page">
+                    <div class="settings-section">
+                        <div class="settings-section-title">Appearance</div>
+                        <div class="settings-item">
+                            <i class="fas fa-moon"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Dark Mode</div>
+                                <div class="settings-item-desc">Use dark theme (default)</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this,'Dark mode')"></div>
+                        </div>
+                        <div class="settings-item">
+                            <i class="fas fa-language"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Language</div>
+                            </div>
+                            <select class="settings-select"
+                                onchange="showToast('Language set to '+this.value,'success')">
+                                <option>English</option>
+                                <option>Hindi</option>
+                                <option>Tamil</option>
+                                <option>Telugu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title">Notifications</div>
+                        <div class="settings-item">
+                            <i class="fas fa-bell"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Push Notifications</div>
+                                <div class="settings-item-desc">Ride updates & alerts</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this,'Push notifications')"></div>
+                        </div>
+                        <div class="settings-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Email Notifications</div>
+                                <div class="settings-item-desc">Weekly digest of rides</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this,'Email notifications')"></div>
+                        </div>
+                        <div class="settings-item">
+                            <i class="fas fa-comment-dots"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Message Sounds</div>
+                                <div class="settings-item-desc">Play sound for new messages</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this,'Message sounds')"></div>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title">Privacy & Security</div>
+                        <div class="settings-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Private Profile</div>
+                                <div class="settings-item-desc">Only followers can see your posts</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this,'Private profile')"></div>
+                        </div>
+                        <div class="settings-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Location Sharing</div>
+                                <div class="settings-item-desc">Share ride location with group</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this,'Location sharing')"></div>
+                        </div>
+                        <div class="settings-item">
+                            <i class="fas fa-lock"></i>
+                            <div class="settings-item-info">
+                                <div class="settings-item-label">Two-Factor Auth</div>
+                                <div class="settings-item-desc">Extra security for your account</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this,'Two-factor auth')"></div>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title">Support</div>
+                        <div class="settings-link" onclick="showToast('Help Center coming soon','info')">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help Center</span><i class="fas fa-chevron-right link-arrow"></i>
+                        </div>
+                        <div class="settings-link" onclick="showToast('Feedback sent!','success')">
+                            <i class="fas fa-comment"></i>
+                            <span>Send Feedback</span><i class="fas fa-chevron-right link-arrow"></i>
+                        </div>
+                        <div class="settings-link" onclick="showToast('Terms & Conditions','info')">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Terms & Conditions</span><i class="fas fa-chevron-right link-arrow"></i>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title">Account</div>
+                        <div class="settings-link"
+                            onclick="if(confirm('Are you sure you want to log out?')){logout();window.location.href='login.html';}">
+                            <i class="fas fa-sign-out-alt settings-danger"></i>
+                            <span class="settings-danger">Log Out</span>
+                        </div>
+                        <div class="settings-link"
+                            onclick="if(confirm('This action cannot be undone. Delete your account?')){showToast('Account deletion request submitted','info');}">
+                            <i class="fas fa-trash settings-danger"></i>
+                            <span class="settings-danger">Delete Account</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Account Security</h4>
+                    </div>
+                    <div style="font-size:11px; color:var(--text-muted);">
+                        <p style="margin-bottom:8px;">Last login: Today, 10:45 AM</p>
+                        <p>Keep your account safe by enabling Two-Factor Authentication.</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        function toggleSwitch(el, name) {
+            el.classList.toggle('active');
+            var state = el.classList.contains('active') ? 'enabled' : 'disabled';
+            showToast(name + ' ' + state, 'success');
+        }
+    </script>
+</body>
+
+</html>

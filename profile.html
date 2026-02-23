@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .edit-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 440px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: var(--fs-lg);
+            font-weight: var(--fw-bold);
+        }
+
+        .edit-form-group {
+            margin-bottom: 16px;
+        }
+
+        .edit-form-label {
+            display: block;
+            font-size: var(--fs-xs);
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: var(--fw-medium);
+        }
+
+        .edit-form-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: var(--fs-sm);
+        }
+
+        .edit-form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .edit-avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid var(--primary);
+        }
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <!-- New Cover Banner -->
+                    <div class="profile-cover"></div>
+
+                    <div class="profile-info-container">
+                        <div class="profile-avatar-row">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face"
+                                class="profile-avatar animate-slideUpFade" alt="Profile" id="profile-avatar">
+                            <div class="profile-actions animate-slideUpFade" style="animation-delay: 0.1s;">
+                                <button class="btn btn-secondary btn-sm" onclick="openEditModal()"><i
+                                        class="fas fa-edit"></i>
+                                    Edit</button>
+                                <button class="btn btn-secondary btn-sm" onclick="shareProfile()"><i
+                                        class="fas fa-share-alt"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-details animate-slideUpFade" style="animation-delay: 0.2s;">
+                            <div class="profile-username" id="profile-name">
+                                Vasan Kumar <i class="fas fa-check-circle verified"></i>
+                            </div>
+                            <p class="profile-username-row" id="profile-handle">@ttf_vasan · <i
+                                    class="fas fa-map-marker-alt" style="color: var(--primary); font-size: 12px;"></i>
+                                Chennai, TN</p>
+
+                            <p class="profile-bio" id="profile-bio">Solo rider | 50,000+ km covered | Living life one
+                                ride at a
+                                time 🏍️</p>
+
+                            <div class="profile-extended-info">
+                                <!-- Rating -->
+                                <div class="profile-rating">
+                                    <i class="fas fa-star" style="color: #F59E0B;"></i>
+                                    <span class="profile-rating-value" id="profile-rating">4.8</span>
+                                    <span class="profile-rating-count" id="profile-rating-count">(127 reviews)</span>
+                                </div>
+
+                                <!-- Tags -->
+                                <div class="profile-tags" id="profile-tags">
+                                    <span class="tag tag-primary">Safe Rider</span>
+                                    <span class="tag">Organized</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Elevated Stats Card -->
+                    <div class="profile-stats-card animate-slideUpFade" style="animation-delay: 0.3s;"
+                        id="profile-stats">
+                        <div class="profile-stat-item">
+                            <div class="profile-stat-number" id="stat-posts">45</div>
+                            <div class="profile-stat-label">Posts</div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="profile-stat-item">
+                            <div class="profile-stat-number" id="stat-followers">2.3K</div>
+                            <div class="profile-stat-label">Followers</div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="profile-stat-item">
+                            <div class="profile-stat-number" id="stat-following">189</div>
+                            <div class="profile-stat-label">Following</div>
+                        </div>
+                    </div>
+
+                    <!-- Bike Hero Card -->
+                    <div class="profile-bike-hero animate-slideUpFade" style="animation-delay: 0.4s;" id="profile-bike">
+                        <div class="profile-bike-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <div class="profile-bike-details">
+                            <span class="bike-label">Primary Ride</span>
+                            <strong>Royal Enfield Himalayan</strong>
+                            <span class="bike-specs">411cc · Adventure</span>
+                        </div>
+                        <a href="garage.html" class="btn btn-icon btn-secondary btn-sm"
+                            style="margin-left: auto; border-radius: 50%; width: 32px; height: 32px;"><i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Ride Metrics Dashboard -->
+                <div class="metrics-dashboard animate-slideUpFade" style="animation-delay: 0.5s;">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-route"></i></div>
+                            <div class="metric-value">45</div>
+                            <div class="metric-label">Rides</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-road"></i></div>
+                            <div class="metric-value">52K</div>
+                            <div class="metric-label">KM Total</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="metric-value">Lv 7</div>
+                            <div class="metric-label">Level</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segmented Tabs -->
+                <div class="profile-tabs animate-slideUpFade" style="animation-delay: 0.6s;">
+                    <button class="profile-tab active" onclick="switchProfileTab(this,'posts')"><i
+                            class="fas fa-th"></i>
+                        Posts</button>
+                    <button class="profile-tab" onclick="switchProfileTab(this,'rides')"><i class="fas fa-route"></i>
+                        Rides</button>
+                    <button class="profile-tab" onclick="switchProfileTab(this,'saved')"><i class="fas fa-bookmark"></i>
+                        Saved</button>
+                </div>
+
+                <!-- Posts Grid -->
+                <div class="tab-panel animate-slideUpFade" style="animation-delay: 0.7s;" id="tab-posts">
+                    <div class="posts-grid" id="posts-grid">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Rides Tab (placeholder) -->
+                <div class="tab-panel" id="tab-rides" style="display:none;">
+                    <div style="padding:16px;">
+                        <div class="ride-day-item" style="cursor:pointer;"
+                            onclick="window.location.href='my-rides.html'">
+                            <div class="ride-day-number"><i class="fas fa-mountain" style="font-size:14px;"></i></div>
+                            <div class="ride-day-info">
+                                <h5>Western Ghats Explorer</h5>
+                                <p>Chennai → Ooty · 580 km · 3 days</p>
+                            </div>
+                        </div>
+                        <div class="ride-day-item" style="cursor:pointer;"
+                            onclick="window.location.href='my-rides.html'">
+                            <div class="ride-day-number"><i class="fas fa-water" style="font-size:14px;"></i></div>
+                            <div class="ride-day-info">
+                                <h5>Konkan Coastal Dream</h5>
+                                <p>Mumbai → Goa · 720 km · 4 days</p>
+                            </div>
+                        </div>
+                        <div class="ride-day-item" style="cursor:pointer;"
+                            onclick="window.location.href='my-rides.html'">
+                            <div class="ride-day-number"><i class="fas fa-flag" style="font-size:14px;"></i></div>
+                            <div class="ride-day-info">
+                                <h5>Ladakh Expedition 2025</h5>
+                                <p>Mumbai → Leh · 4200 km · 20 days</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Tab -->
+                <div class="tab-panel" id="tab-saved" style="display:none;">
+                    <div style="text-align:center;padding:40px 20px;">
+                        <i class="fas fa-bookmark"
+                            style="font-size:36px;color:var(--text-muted);margin-bottom:10px;display:block;"></i>
+                        <p style="color:var(--text-muted);font-size:var(--fs-sm);margin-bottom:12px;">View your saved
+                            rides</p>
+                        <a href="saved.html" class="btn btn-primary btn-sm">Go to Saved</a>
+                    </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Achievements</h4>
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px;">
+                        <div style="text-align:center;"><i class="fas fa-mountain"
+                                style="color:var(--primary); font-size:20px;"></i>
+                            <div style="font-size:9px; margin-top:4px;">Hill Pro</div>
+                        </div>
+                        <div style="text-align:center;"><i class="fas fa-bolt"
+                                style="color:var(--primary); font-size:20px;"></i>
+                            <div style="font-size:9px; margin-top:4px;">Fast Track</div>
+                        </div>
+                        <div style="text-align:center;"><i class="fas fa-umbrella"
+                                style="color:var(--text-muted); font-size:20px;"></i>
+                            <div style="font-size:9px; margin-top:4px;">Monsoon</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal-overlay" id="edit-modal-overlay">
+        <div class="edit-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Profile</h3>
+                <button class="btn btn-icon btn-ghost" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="edit-profile-form">
+                <div class="edit-form-group" style="text-align:center;">
+                    <img id="edit-avatar-preview" src="" class="edit-avatar-preview" alt="Avatar Preview">
+                    <input type="text" id="edit-avatar-url" class="edit-form-input" placeholder="Avatar URL">
+                </div>
+                <div class="edit-form-group">
+                    <label class="edit-form-label">Name</label>
+                    <input type="text" id="edit-name" class="edit-form-input" required>
+                </div>
+                <div class="edit-form-group">
+                    <label class="edit-form-label">Username</label>
+                    <input type="text" id="edit-username" class="edit-form-input" required>
+                </div>
+                <div class="edit-form-group">
+                    <label class="edit-form-label">Bio</label>
+                    <textarea id="edit-bio" class="edit-form-input" rows="3" style="resize:none;"></textarea>
+                </div>
+                <div class="edit-form-group">
+                    <label class="edit-form-label">Location</label>
+                    <input type="text" id="edit-location" class="edit-form-input">
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:24px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="bottom-nav-content">
+        <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+        <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+        <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+        <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+    </div>
+    </nav>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        function switchProfileTab(btn, tabId) {
+            document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
+            document.getElementById('tab-' + tabId).style.display = 'block';
+        }
+        function shareProfile() {
+            if (navigator.share) {
+                navigator.share({ title: 'RideGram Profile', url: window.location.href });
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => showToast('Profile link copied!', 'success'));
+            }
+        }
+
+        // Edit Profile Logic
+        function openEditModal() {
+            const user = JSON.parse(localStorage.getItem('currentUser')) || {
+                name: 'Vasan Kumar',
+                username: 'ttf_vasan',
+                bio: 'Solo rider | 50,000+ km covered | Living life one ride at a time 🏍️',
+                location: 'Chennai, TN',
+                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
+            };
+
+            document.getElementById('edit-name').value = user.name;
+            document.getElementById('edit-username').value = user.username;
+            document.getElementById('edit-bio').value = user.bio;
+            document.getElementById('edit-location').value = user.location || 'Chennai, TN';
+            document.getElementById('edit-avatar-url').value = user.avatar;
+            document.getElementById('edit-avatar-preview').src = user.avatar;
+            document.getElementById('edit-modal-overlay').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal-overlay').style.display = 'none';
+        }
+
+        document.getElementById('edit-avatar-url').addEventListener('input', function () {
+            document.getElementById('edit-avatar-preview').src = this.value;
+        });
+
+        document.getElementById('edit-profile-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const updatedUser = {
+                name: document.getElementById('edit-name').value,
+                username: document.getElementById('edit-username').value,
+                bio: document.getElementById('edit-bio').value,
+                location: document.getElementById('edit-location').value,
+                avatar: document.getElementById('edit-avatar-url').value,
+                id: 'user_001'
+            };
+
+            localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+            // Update UI
+            document.getElementById('profile-name').innerHTML = `${updatedUser.name} <i class="fas fa-check-circle verified"></i>`;
+            document.getElementById('profile-handle').innerHTML = `@${updatedUser.username} · <i class="fas fa-map-marker-alt" style="color: var(--primary); font-size: 12px;"></i> ${updatedUser.location}`;
+            document.getElementById('profile-bio').textContent = updatedUser.bio;
+            document.getElementById('profile-avatar').src = updatedUser.avatar;
+
+            // Update sidebar if open
+            if (typeof initGlobalSidebar === 'function') initGlobalSidebar();
+
+            closeEditModal();
+            showToast('Profile updated successfully!', 'success');
+        });
+
+        // Initialize Profile from LocalStorage
+        function loadProfile() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user) {
+                document.getElementById('profile-name').innerHTML = `${user.name} <i class="fas fa-check-circle verified"></i>`;
+                document.getElementById('profile-handle').innerHTML = `@${user.username} · <i class="fas fa-map-marker-alt" style="color: var(--primary); font-size: 12px;"></i> ${user.location}`;
+                document.getElementById('profile-bio').textContent = user.bio;
+                document.getElementById('profile-avatar').src = user.avatar;
+            }
+        }
+
+        // Render posts grid
+        document.addEventListener('DOMContentLoaded', function () {
+            loadProfile();
+            const grid = document.getElementById('posts-grid');
+            const userPosts = posts.filter(p => p.userId === 'user_001');
+            const allImages = [
+                ...userPosts.map(p => ({ image: p.image, likes: p.likes, comments: p.comments, location: p.location })),
+                { image: 'https://images.unsplash.com/photo-1590845947670-c009801ffa74?w=400&h=400&fit=crop', likes: 156, comments: 23, location: 'Wayanad' },
+                { image: 'https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=400&h=400&fit=crop', likes: 234, comments: 45, location: 'Bangalore' },
+                { image: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400&h=400&fit=crop', likes: 189, comments: 34, location: 'Ooty' },
+                { image: 'https://images.unsplash.com/photo-1568772585407-9361bd37ec91?w=400&h=400&fit=crop', likes: 312, comments: 56, location: 'Gokarna' },
+                { image: 'https://images.unsplash.com/photo-1558980664-769d59546b3d?w=400&h=400&fit=crop', likes: 445, comments: 78, location: 'Ladakh' },
+                { image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop', likes: 267, comments: 41, location: 'Ooty' }
+            ];
+            grid.innerHTML = allImages.map(p => `
+                <div class="post-grid-item">
+                    <img src="${p.image}" alt="Post">
+                    <div class="post-grid-overlay">
+                        <div class="post-grid-stats">
+                            <span><i class="fas fa-heart"></i> ${p.likes}</span>
+                            <span><i class="fas fa-comment"></i> ${p.comments}</span>
+                        </div>
+                    </div>
+                    <div class="post-grid-location"><i class="fas fa-map-marker-alt"></i> ${p.location || ''}</div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+
+</html>

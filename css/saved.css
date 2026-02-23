@@ -1,0 +1,162 @@
+/* Saved Rides Page - Vertical Card Layout */
+
+.saved-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px 16px 100px;
+}
+
+.saved-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+/* Reusing Explore Card Style for Consistency */
+.saved-item {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all var(--transition);
+    cursor: pointer;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+}
+
+.saved-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-light);
+    box-shadow: var(--shadow-md);
+}
+
+.saved-img-wrapper {
+    height: 180px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.saved-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.saved-item:hover .saved-img {
+    transform: scale(1.05);
+}
+
+.saved-body {
+    padding: 16px;
+}
+
+.saved-title {
+    font-size: var(--fs-base);
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.saved-meta {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.saved-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.saved-meta i {
+    color: var(--primary);
+    font-size: 12px;
+}
+
+.saved-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.saved-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.saved-user img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+}
+
+.saved-user span {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.saved-user strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.saved-remove {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.saved-remove:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: rotate(-10deg);
+}
+
+/* Empty State */
+.empty-saved {
+    text-align: center;
+    padding: 100px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.empty-saved i {
+    font-size: 48px;
+    color: var(--primary);
+    opacity: 0.3;
+}
+
+.empty-saved p {
+    color: var(--text-muted);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+}
+
+.empty-saved .btn {
+    margin-top: 10px;
+    padding: 12px 24px;
+}

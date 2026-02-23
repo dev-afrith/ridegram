@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Create Ride</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/create-ride.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <form id="create-ride-form">
+                    <!-- Cover Photo Section -->
+                    <div class="image-upload-wrapper animate-slideUpFade">
+                        <div class="image-upload-card" onclick="document.getElementById('file-input').click()">
+                            <div id="upload-placeholder">
+                                <i class="fas fa-camera"></i>
+                                <p>Upload Cover Photo</p>
+                            </div>
+                            <img id="preview-img" style="display:none;" alt="Preview">
+                            <input type="file" id="file-input" accept="image/*" hidden
+                                onchange="handleImageUpload(this)">
+                        </div>
+                    </div>
+
+                    <!-- Basic Details Card -->
+                    <div class="create-card animate-slideUpFade" style="animation-delay: 0.1s;">
+                        <h3 class="create-section-title"><i class="fas fa-info-circle"></i> Basic Details</h3>
+                        <div class="form-group">
+                            <label class="form-label">Ride Title</label>
+                            <input type="text" class="form-input" id="ride-title"
+                                placeholder="e.g., Ladakh Adventure 2025" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">From</label>
+                                <input type="text" class="form-input" id="ride-from" placeholder="Start city" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">To</label>
+                                <input type="text" class="form-input" id="ride-to" placeholder="End city" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-input" id="ride-start-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-input" id="ride-end-date" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Difficulty</label>
+                                <select class="form-input" id="ride-difficulty">
+                                    <option>Easy</option>
+                                    <option selected>Moderate</option>
+                                    <option>Hard</option>
+                                    <option>Expert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Max Riders</label>
+                                <input type="number" class="form-input" id="ride-max-riders" value="6" min="2" max="20">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-input" id="ride-description" rows="3"
+                                placeholder="Describe your ride plan..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Itinerary Section -->
+                    <div class="create-card animate-slideUpFade" style="animation-delay: 0.2s;">
+                        <h3 class="create-section-title"><i class="fas fa-map-signs"></i> Daily Itinerary</h3>
+                        <div id="days-container">
+                            <div class="day-card" data-day="1">
+                                <div class="day-card-header">
+                                    <span class="day-number"><span>1</span> Day 1</span>
+                                </div>
+                                <div class="form-group" style="margin-bottom:12px;">
+                                    <input type="text" class="form-input"
+                                        placeholder="Title (e.g., Chennai to Krishnagiri)">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <input type="text" class="form-input" placeholder="Distance (km)">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <input type="text" class="form-input" placeholder="Hotel/Stay">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-day-btn" onclick="addDay()"><i class="fas fa-plus-circle"></i>
+                            Add New
+                            Day</button>
+                    </div>
+
+                    <!-- Final Settings Section -->
+                    <div class="create-card animate-slideUpFade" style="animation-delay: 0.3s;">
+                        <h3 class="create-section-title"><i class="fas fa-cog"></i> Final Settings</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Budget (approx)</label>
+                                <input type="text" class="form-input" id="ride-budget" placeholder="₹12,000 - ₹15,000">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Meeting Point</label>
+                                <input type="text" class="form-input" id="ride-meeting" placeholder="Location, Time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="create-actions animate-slideUpFade" style="animation-delay: 0.4s;">
+                        <button type="button" class="btn btn-secondary" onclick="showToast('Draft saved!','success')"><i
+                                class="fas fa-save"></i> Save Draft</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Post
+                            Ride</button>
+                    </div>
+                </form>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Ride Checklist</h4>
+                    </div>
+                    <ul style="font-size:var(--fs-xs); color:var(--text-secondary); padding-left:14px; margin:0;">
+                        <li style="margin-bottom:8px;">Add clear meeting point.</li>
+                        <li style="margin-bottom:8px;">Attach route map link.</li>
+                        <li>Check weather forecast.</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn active"><i
+                    class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        let dayCount = 1;
+        function addDay() {
+            dayCount++;
+            const container = document.getElementById('days-container');
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.setAttribute('data-day', dayCount);
+            card.innerHTML = `
+                <div class="day-card-header">
+                    <span class="day-number"><span>${dayCount}</span> Day ${dayCount}</span>
+                    <button type="button" class="remove-day" onclick="removeDay(this)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <input type="text" class="form-input" placeholder="Title (e.g., route segment)">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom:0;"><input type="text" class="form-input" placeholder="Distance (km)"></div>
+                    <div class="form-group" style="margin-bottom:0;"><input type="text" class="form-input" placeholder="Hotel/Stay"></div>
+                </div>`;
+            container.appendChild(card);
+        }
+        function removeDay(btn) {
+            btn.closest('.day-card').remove();
+            dayCount--;
+            document.querySelectorAll('.day-card').forEach((card, i) => {
+                card.querySelector('.day-number span').textContent = i + 1;
+                card.querySelector('.day-number').innerHTML = `<span>${i + 1}</span> Day ${i + 1}` + (i > 0 ? '' : '');
+            });
+        }
+        function handleImageUpload(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('preview-img');
+                    const placeholder = document.getElementById('upload-placeholder');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    showToast('Cover photo uploaded!', 'success');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        document.getElementById('create-ride-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Collect form data
+            var title = document.getElementById('ride-title').value.trim();
+            var from = document.getElementById('ride-from').value.trim();
+            var to = document.getElementById('ride-to').value.trim();
+            var startDate = document.getElementById('ride-start-date').value;
+            var endDate = document.getElementById('ride-end-date').value;
+            var difficulty = document.getElementById('ride-difficulty').value;
+            var maxRiders = parseInt(document.getElementById('ride-max-riders').value) || 6;
+            var description = document.getElementById('ride-description').value.trim();
+            var budget = document.getElementById('ride-budget').value.trim();
+            var meeting = document.getElementById('ride-meeting').value.trim();
+
+            // Calculate days
+            var days = 1;
+            if (startDate && endDate) {
+                var diff = new Date(endDate) - new Date(startDate);
+                days = Math.max(1, Math.ceil(diff / 86400000) + 1);
+            }
+
+            // Get cover image (use uploaded preview or a default)
+            var previewImg = document.getElementById('preview-img');
+            var coverImage = (previewImg && previewImg.src && previewImg.src.startsWith('data:'))
+                ? previewImg.src
+                : 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop';
+
+            // Collect itinerary
+            var itinerary = [];
+            document.querySelectorAll('.day-card').forEach(function (card) {
+                var inputs = card.querySelectorAll('.form-input');
+                itinerary.push({
+                    title: inputs[0] ? inputs[0].value : '',
+                    distance: inputs[1] ? inputs[1].value : '',
+                    stay: inputs[2] ? inputs[2].value : ''
+                });
+            });
+
+            // Calculate total distance from itinerary
+            var totalKm = 0;
+            itinerary.forEach(function (day) {
+                var km = parseInt(day.distance);
+                if (!isNaN(km)) totalKm += km;
+            });
+            if (totalKm === 0) totalKm = days * 200; // estimate if not filled
+
+            // Build unique ID
+            var rideId = 'user_ride_' + Date.now();
+            var postId = 'user_post_' + Date.now();
+
+            // Format date for display
+            var dateDisplay = '';
+            if (startDate) {
+                var sd = new Date(startDate);
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                dateDisplay = months[sd.getMonth()] + ' ' + sd.getDate();
+                if (endDate) {
+                    var ed = new Date(endDate);
+                    dateDisplay += ' - ' + months[ed.getMonth()] + ' ' + ed.getDate();
+                }
+            }
+
+            var ride = {
+                id: rideId,
+                title: title,
+                difficulty: difficulty,
+                maxParticipants: maxRiders,
+                participants: ['user_001'],
+                summary: {
+                    from: from,
+                    to: to,
+                    totalKm: totalKm,
+                    days: days
+                },
+                itinerary: itinerary,
+                budget: budget,
+                meeting: meeting,
+                dateDisplay: dateDisplay,
+                isUserCreated: true
+            };
+
+            // Build post object
+            var post = {
+                id: postId,
+                userId: 'user_001',
+                rideId: rideId,
+                image: coverImage,
+                caption: description || title + ' — ' + from + ' to ' + to + '. Who\'s in? 🏍️',
+                location: from + ', India',
+                likes: 0,
+                comments: 0,
+                isLiked: false,
+                createdAt: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            var stored = [];
+            try { stored = JSON.parse(localStorage.getItem('userCreatedRides') || '[]'); } catch (e) { }
+            stored.push({ ride: ride, post: post });
+            localStorage.setItem('userCreatedRides', JSON.stringify(stored));
+
+            showToast('Ride created successfully! 🏍️', 'success');
+            setTimeout(function () { window.location.href = 'feed.html'; }, 1500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Saved</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/saved.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <div class="saved-grid" id="saved-list">
+                    <div class="saved-item animate-slideUpFade">
+                        <div class="saved-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600" class="saved-img"
+                                alt="Ride">
+                        </div>
+                        <div class="saved-body">
+                            <h3 class="saved-title">Western Ghats Explorer</h3>
+                            <div class="saved-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Chennai → Ooty</span>
+                                <span><i class="fas fa-road"></i> 580 km</span>
+                                <span><i class="fas fa-calendar"></i> 3 days</span>
+                            </div>
+                            <div class="saved-footer">
+                                <div class="saved-user">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40" alt="">
+                                    <span>by <strong>Vasan Kumar</strong></span>
+                                </div>
+                                <button class="saved-remove" onclick="removeSaved(this)" title="Remove"><i
+                                        class="fas fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="saved-item animate-slideUpFade" style="animation-delay: 0.1s;">
+                        <div class="saved-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1558980664-769d59546b3d?w=600" class="saved-img"
+                                alt="Ride">
+                        </div>
+                        <div class="saved-body">
+                            <h3 class="saved-title">Ladakh Expedition 2025</h3>
+                            <div class="saved-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Mumbai → Leh</span>
+                                <span><i class="fas fa-road"></i> 4200 km</span>
+                                <span><i class="fas fa-calendar"></i> 20 days</span>
+                            </div>
+                            <div class="saved-footer">
+                                <div class="saved-user">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40" alt="">
+                                    <span>by <strong>Priya Sharma</strong></span>
+                                </div>
+                                <button class="saved-remove" onclick="removeSaved(this)" title="Remove"><i
+                                        class="fas fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="saved-item animate-slideUpFade" style="animation-delay: 0.2s;">
+                        <div class="saved-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1568772585407-9361bd37ec91?w=600"
+                                class="saved-img" alt="Ride">
+                        </div>
+                        <div class="saved-body">
+                            <h3 class="saved-title">Konkan Coastal Dream</h3>
+                            <div class="saved-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Mumbai → Goa</span>
+                                <span><i class="fas fa-road"></i> 720 km</span>
+                                <span><i class="fas fa-calendar"></i> 4 days</span>
+                            </div>
+                            <div class="saved-footer">
+                                <div class="saved-user">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40" alt="">
+                                    <span>by <strong>Afrith Khan</strong></span>
+                                </div>
+                                <button class="saved-remove" onclick="removeSaved(this)" title="Remove"><i
+                                        class="fas fa-bookmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Saved Tips</h4>
+                    </div>
+                    <ul style="font-size:var(--fs-xs); color:var(--text-secondary); padding-left:14px; margin:0;">
+                        <li style="margin-bottom:8px;">Saved rides are available offline.</li>
+                        <li>Check route status before you head out.</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        function removeSaved(btn) {
+            const item = btn.closest('.saved-item');
+            item.style.transition = 'all 0.3s ease';
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                item.remove();
+                showToast('Ride unsaved', 'info');
+                if (document.querySelectorAll('.saved-item').length === 0) {
+                    document.getElementById('saved-list').innerHTML = `
+                        <div class="empty-saved">
+                            <i class="fas fa-bookmark"></i>
+                            <p>No saved rides yet</p>
+                            <a href="explore.html" class="btn btn-primary btn-sm"><i class="fas fa-compass"></i> Explore Rides</a>
+                        </div>`;
+                }
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

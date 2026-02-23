@@ -1,0 +1,518 @@
+/* Profile Page - Dark/Red MotoTribe Style */
+.profile-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 70px;
+}
+
+/* NEW COVER BANNER */
+.profile-cover {
+    height: 140px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(79, 70, 229, 0.2)), url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&h=400&fit=crop') center/cover no-repeat;
+    position: relative;
+}
+
+.profile-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--bg-primary), transparent);
+    opacity: 0.8;
+}
+
+/* PROFILE HEADER (OVERLAPPING) */
+.profile-header {
+    padding: 0 16px 20px;
+    position: relative;
+    z-index: 2;
+    margin-top: -50px;
+}
+
+.profile-info-container {
+    margin-bottom: 20px;
+}
+
+.profile-avatar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 4px solid var(--bg-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    background: var(--bg-primary);
+}
+
+.profile-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.profile-info-details {
+    text-align: left;
+}
+
+.profile-username {
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-bold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+.profile-username .verified {
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.profile-username-row {
+    color: var(--text-muted);
+    font-size: var(--fs-sm);
+    margin-bottom: 12px;
+}
+
+.profile-bio {
+    color: var(--text-primary);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+/* Extended Info (Rating & Tags inline) */
+.profile-extended-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.profile-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-sm);
+}
+
+.profile-rating-value {
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+}
+
+.profile-rating-count {
+    color: var(--text-muted);
+}
+
+.profile-tags {
+    display: flex;
+    gap: 6px;
+}
+
+/* ELEVATED STATS CARD */
+.profile-stats-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.profile-stat-number {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.profile-stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: var(--fw-medium);
+}
+
+.stat-divider {
+    width: 1px;
+    height: 30px;
+    background: var(--border);
+}
+
+/* BIKE HERO CARD */
+.profile-bike-hero {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius-xl);
+    padding: 16px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.profile-bike-hero:hover {
+    transform: translateY(-2px);
+    background: rgba(99, 102, 241, 0.12);
+    box-shadow: var(--shadow-md);
+}
+
+.profile-bike-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(99, 102, 241, 0.15);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-light);
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.profile-bike-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.bike-label {
+    font-size: 10px;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-weight: var(--fw-bold);
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+}
+
+.profile-bike-details strong {
+    font-size: var(--fs-base);
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.bike-specs {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* METRICS DASHBOARD (Replacing old 3-grid) */
+.metrics-dashboard {
+    padding: 0 16px 20px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.metric-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition);
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+}
+
+.metric-icon {
+    font-size: 20px;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-lg);
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.metric-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Details Grid */
+.profile-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 16px;
+    margin-bottom: 12px;
+}
+
+.profile-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+}
+
+.profile-detail-item i {
+    color: var(--primary);
+    width: 16px;
+    font-size: 12px;
+}
+
+/* TABS (Segmented Control) */
+.profile-tabs {
+    display: flex;
+    background: var(--bg-card);
+    padding: 6px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    margin: 0 16px 20px;
+    box-shadow: var(--shadow-sm);
+    animation-delay: 0.6s;
+}
+
+.profile-tab {
+    flex: 1;
+    padding: 10px;
+    font-weight: var(--fw-semibold);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition);
+    border: none;
+    background: transparent;
+    font-size: var(--fs-sm);
+}
+
+.profile-tab:hover {
+    color: var(--text-primary);
+}
+
+.profile-tab.active {
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* POSTS GRID */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+
+.post-grid-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.post-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition);
+}
+
+.post-grid-item:hover img {
+    transform: scale(1.05);
+}
+
+.post-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.post-grid-item:hover .post-grid-overlay {
+    opacity: 1;
+}
+
+.post-grid-stats {
+    display: flex;
+    gap: 16px;
+    color: #fff;
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-sm);
+}
+
+.post-grid-stats span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.post-grid-privacy {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+}
+
+.post-grid-location {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    color: #fff;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.post-grid-item:hover .post-grid-location {
+    opacity: 1;
+}
+
+/* Ride Details */
+.ride-details-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.ride-summary-card {
+    background: var(--bg-input);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+}
+
+.ride-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.ride-summary-item i {
+    font-size: 20px;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.ride-summary-item h4 {
+    font-size: var(--fs-lg);
+    margin-bottom: 2px;
+}
+
+.ride-summary-item span {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.ride-day-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg-input);
+    border-radius: var(--radius-md);
+    margin-bottom: 6px;
+    border: 1px solid var(--border);
+}
+
+.ride-day-number {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-sm);
+    flex-shrink: 0;
+}
+
+.ride-day-info h5 {
+    font-size: var(--fs-sm);
+    margin-bottom: 2px;
+}
+
+.ride-day-info p {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.ride-locked-message {
+    text-align: center;
+    padding: 24px;
+    background: var(--bg-input);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.ride-locked-message i {
+    font-size: 2rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .profile-page {
+        max-width: 600px;
+    }
+
+    .posts-grid {
+        gap: 4px;
+    }
+
+    .post-grid-item {
+        border-radius: var(--radius-sm);
+    }
+}

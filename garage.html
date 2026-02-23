@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - My Garage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/garage.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <div class="featured-bike animate-slideUpFade">
+                    <div class="featured-bike animate-slideUpFade">
+                        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&h=400&fit=crop"
+                            class="featured-bike-img" alt="Royal Enfield Himalayan">
+                        <div class="featured-bike-overlay"></div>
+                        <div class="featured-bike-info">
+                            <span class="featured-badge"><i class="fas fa-star"></i> Primary Ride</span>
+                            <h2 class="featured-bike-name">Royal Enfield Himalayan</h2>
+                            <p class="featured-bike-model">411cc · Adventure · 2023</p>
+                        </div>
+                    </div>
+
+                    <div class="bike-specs animate-slideUpFade" style="animation-delay: 0.1s;">
+                        <div class="spec-card"><i class="fas fa-tachometer-alt"></i>
+                            <div class="spec-value">411</div>
+                            <div class="spec-label">CC</div>
+                        </div>
+                        <div class="spec-card"><i class="fas fa-road"></i>
+                            <div class="spec-value">52K</div>
+                            <div class="spec-label">KM Done</div>
+                        </div>
+                        <div class="spec-card"><i class="fas fa-gas-pump"></i>
+                            <div class="spec-value">30</div>
+                            <div class="spec-label">KM/L</div>
+                        </div>
+                    </div>
+
+                    <div class="mods-section animate-slideUpFade" style="animation-delay: 0.2s;">
+                        <h3 class="garage-section-title"><i class="fas fa-wrench"></i> Modifications</h3>
+                        <div class="mod-item">
+                            <div class="mod-icon"><i class="fas fa-wind"></i></div>
+                            <div class="mod-info">
+                                <div class="mod-name">Touring Windscreen</div>
+                                <div class="mod-brand">Puig Sport</div>
+                            </div>
+                            <span class="mod-tag">Touring</span>
+                        </div>
+                        <div class="mod-item">
+                            <div class="mod-icon"><i class="fas fa-suitcase"></i></div>
+                            <div class="mod-info">
+                                <div class="mod-name">Panniers Set</div>
+                                <div class="mod-brand">SW-Motech</div>
+                            </div>
+                            <span class="mod-tag">Storage</span>
+                        </div>
+                        <div class="mod-item">
+                            <div class="mod-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="mod-info">
+                                <div class="mod-name">Crash Guards</div>
+                                <div class="mod-brand">Zana</div>
+                            </div>
+                            <span class="mod-tag">Protection</span>
+                        </div>
+                    </div>
+
+                    <div class="service-section animate-slideUpFade" style="animation-delay: 0.3s;">
+                        <h3 class="garage-section-title"><i class="fas fa-clipboard-list"></i> Service Log</h3>
+                        <div class="service-item">
+                            <div class="service-icon"><i class="fas fa-oil-can"></i></div>
+                            <div class="service-info">
+                                <div class="service-name">Engine Oil Change</div>
+                                <div class="service-detail">Shell Advance 15W-50</div>
+                            </div>
+                            <div class="service-date">Jan 15, 2024</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon"><i class="fas fa-cog"></i></div>
+                            <div class="service-info">
+                                <div class="service-name">Chain & Sprocket</div>
+                                <div class="service-detail">Rolon Gold Chain</div>
+                            </div>
+                            <div class="service-date">Dec 10, 2023</div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon"><i class="fas fa-circle"></i></div>
+                            <div class="service-info">
+                                <div class="service-name">Tyre Replacement</div>
+                                <div class="service-detail">Ceat Gripp XL</div>
+                            </div>
+                            <div class="service-date">Nov 5, 2023</div>
+                        </div>
+                    </div>
+
+                    <button class="add-bike-btn animate-slideUpFade" style="animation-delay: 0.4s;"
+                        onclick="showToast('Add bike feature coming soon!','info')">
+                        <i class="fas fa-plus"></i> Add Another Bike
+                    </button>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Garage Stats</h4>
+                    </div>
+                    <div style="font-size:var(--fs-xs); color:var(--text-secondary);">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                            <span>Total Rides</span><span>45</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                            <span>Fuel Spent</span><span>₹85,400</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>Service Due</span><span style="color:var(--primary);">200km</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>

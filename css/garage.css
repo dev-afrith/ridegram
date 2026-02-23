@@ -1,0 +1,267 @@
+/* My Garage Page - Premium Dashboard Styles */
+
+.garage-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 100px;
+}
+
+.featured-bike {
+    position: relative;
+    overflow: hidden;
+    height: 240px;
+}
+
+.featured-bike-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.featured-bike:hover .featured-bike-img {
+    transform: scale(1.05);
+}
+
+.featured-bike-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--bg-primary), transparent 70%);
+}
+
+.featured-bike-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 20px;
+}
+
+.featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.featured-bike-name {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+.featured-bike-model {
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+/* Spec Grid Upgrade */
+.bike-specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 20px 16px;
+}
+
+.spec-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 16px 12px;
+    text-align: center;
+    transition: all var(--transition);
+}
+
+.spec-card:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-4px);
+    background: var(--bg-elevated);
+}
+
+.spec-card i {
+    color: var(--primary);
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.spec-value {
+    font-weight: 800;
+    font-size: var(--fs-base);
+    color: var(--text-primary);
+}
+
+.spec-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* Section Headings */
+.garage-section-title {
+    padding: 0 16px;
+    margin-bottom: 16px;
+    font-size: var(--fs-base);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.garage-section-title i {
+    color: var(--primary);
+    width: 20px;
+}
+
+/* Modifications List */
+.mods-section,
+.service-section {
+    padding-bottom: 24px;
+}
+
+.mod-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    margin: 0 16px 10px;
+    transition: all var(--transition);
+}
+
+.mod-item:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-elevated);
+}
+
+.mod-icon {
+    width: 46px;
+    height: 46px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.mod-info {
+    flex: 1;
+}
+
+.mod-name {
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.mod-brand {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.mod-tag {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* Service Log Upgrade */
+.service-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background var(--transition);
+}
+
+.service-item:hover {
+    background: rgba(16, 185, 129, 0.03);
+}
+
+.service-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #10B981;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.service-info {
+    flex: 1;
+}
+
+.service-name {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.service-detail {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.service-date {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.add-bike-btn {
+    width: calc(100% - 32px);
+    margin: 16px;
+    padding: 16px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-xl);
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all var(--transition);
+}
+
+.add-bike-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.02);
+}

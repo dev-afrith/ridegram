@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <style>
+        .notif-page {
+            max-width: 480px;
+            margin: 0 auto;
+            padding-bottom: 70px;
+        }
+
+        .notif-tabs {
+            display: flex;
+            gap: 6px;
+            padding: 10px 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notif-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .notification-tab {
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: var(--fs-xs);
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            font-weight: var(--fw-medium);
+            transition: all var(--transition);
+        }
+
+        .notification-tab.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            transition: background var(--transition);
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .notification-item.unread {
+            background: rgba(99, 102, 241, 0.04);
+            border-left: 3px solid var(--primary);
+        }
+
+        .notification-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .notification-icon-wrap {
+            position: relative;
+        }
+
+        .notification-icon {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 20px;
+            height: 20px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            color: #fff;
+            border: 2px solid var(--bg-primary);
+        }
+
+        .notification-icon.join {
+            background: var(--primary);
+        }
+
+        .notification-icon.like {
+            background: #EF4444;
+        }
+
+        .notification-icon.comment {
+            background: var(--accent-blue);
+        }
+
+        .notification-icon.follow {
+            background: var(--accent-green);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-text {
+            font-size: var(--fs-sm);
+            line-height: 1.4;
+        }
+
+        .notification-text strong {
+            font-weight: var(--fw-semibold);
+        }
+
+        .notification-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <div class="notif-header"
+                    style="display:flex; justify-content:space-between; align-items:center; padding: 16px; border-bottom: 1px solid var(--border);">
+                    <h2 style="font-size:var(--fs-lg); font-weight:var(--fw-bold);">Notifications</h2>
+                    <button class="btn btn-ghost btn-sm" onclick="markAllRead()"
+                        style="font-size:var(--fs-xs);color:var(--primary);">Mark all read</button>
+                </div>
+
+                <div class="notif-tabs">
+                    <button class="notification-tab active" onclick="filterNotifs(this, 'all')">All</button>
+                    <button class="notification-tab" onclick="filterNotifs(this, 'request')">Ride Requests</button>
+                    <button class="notification-tab" onclick="filterNotifs(this, 'like')">Likes</button>
+                    <button class="notification-tab" onclick="filterNotifs(this, 'comment')">Comments</button>
+                </div>
+
+                <div id="notif-list">
+                    <!-- Notifications rendered by JS -->
+                </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="suggestions-section">
+                    <div class="suggestions-header">
+                        <h4>Activity Summary</h4>
+                    </div>
+                    <div style="font-size:var(--fs-xs); color:var(--text-secondary);">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                            <span>New Requests</span><span style="color:var(--primary); font-weight:600;">3</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                            <span>Recent Likes</span><span>12</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between;">
+                            <span>New Followers</span><span>5</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item active"><i
+                    class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        const notificationData = [
+            { id: 1, type: 'request', user: 'Priya Sharma', emoji: '👩🏽', text: 'requested to join your <strong>Western Ghats Explorer</strong> ride', time: '2m', unread: true },
+            { id: 2, type: 'like', user: 'Afrith Khan', emoji: '🧔🏻', text: 'liked your post about <strong>Western Ghats ride</strong>', time: '15m', unread: true },
+            { id: 3, type: 'comment', user: 'Ajith Prasad', emoji: '👨🏾', text: 'commented: "Amazing ride! Which route did you take?"', time: '1h', unread: false },
+            { id: 4, type: 'follow', user: 'Rajesh Menon', emoji: '👨🏻', text: 'started following you', time: '3h', unread: false },
+            { id: 5, type: 'request', user: 'Suresh Raina', emoji: '🏏', text: 'sent a request for your <strong>Ladakh Expedition</strong>', time: '5h', unread: true },
+            { id: 6, type: 'like', user: 'Karthik Raja', emoji: '👦🏽', text: 'liked your photo from the <strong>Night Ride</strong>', time: '8h', unread: false },
+            { id: 7, type: 'comment', user: 'Ananya S', emoji: '👩🏻', text: 'replied to your comment: "Let\'s plan for next weekend!"', time: '12h', unread: false },
+            { id: 8, type: 'follow', user: 'Vikram Seth', emoji: '🕶️', text: 'started following you', time: '1d', unread: false },
+            { id: 9, type: 'like', user: 'Meera Jasmine', emoji: '🌸', text: 'liked your trip itinerary for <strong>Konkan Coastal</strong>', time: '1d', unread: false },
+            { id: 10, type: 'request', user: 'Rahul Bose', emoji: '⛺', text: 'wants to join your <strong>Adventure Camp</strong> ride', time: '2d', unread: false },
+            { id: 11, type: 'comment', user: 'Deepa Naveen', emoji: '🏍️', text: 'commented: "The bikes look sick! 🔥"', time: '2d', unread: false },
+            { id: 12, type: 'follow', user: 'Arun George', emoji: '👨🏼', text: 'started following you', time: '3d', unread: false }
+        ];
+
+        function renderNotifications(filter = 'all') {
+            const list = document.getElementById('notif-list');
+            const filtered = filter === 'all' ? notificationData : notificationData.filter(n => n.type === filter);
+
+            list.innerHTML = filtered.map(n => `
+                <div class="notification-item ${n.unread ? 'unread' : ''}">
+                    <div class="notification-icon-wrap">
+                        <div class="notification-avatar" style="display:flex; align-items:center; justify-content:center; background:var(--bg-input); font-size:24px;">
+                            ${n.emoji}
+                        </div>
+                        <span class="notification-icon ${n.type}"><i class="fas ${getIcon(n.type)}"></i></span>
+                    </div>
+                    <div class="notification-content">
+                        <p class="notification-text"><strong>${n.user}</strong> ${n.text}</p>
+                        <p class="notification-time">${n.time} ago</p>
+                        ${n.type === 'request' && n.unread ? `
+                            <div class="notification-actions">
+                                <button class="btn btn-primary btn-sm" onclick="handleNotifAction(this,'accept')">Accept</button>
+                                <button class="btn btn-secondary btn-sm" onclick="handleNotifAction(this,'decline')">Decline</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getIcon(type) {
+            switch (type) {
+                case 'request': return 'fa-plus';
+                case 'like': return 'fa-heart';
+                case 'comment': return 'fa-comment';
+                case 'follow': return 'fa-user-plus';
+                default: return 'fa-bell';
+            }
+        }
+
+        function filterNotifs(btn, type) {
+            document.querySelectorAll('.notification-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderNotifications(type);
+        }
+
+        function markAllRead() {
+            notificationData.forEach(n => n.unread = false);
+            renderNotifications();
+            showToast('All notifications marked as read', 'success');
+        }
+
+        function handleNotifAction(btn, action) {
+            const item = btn.closest('.notification-item');
+            const actions = item.querySelector('.notification-actions');
+            if (action === 'accept') {
+                actions.innerHTML = '<span class="badge badge-success"><i class="fas fa-check"></i> Accepted</span>';
+                showToast('Ride request accepted!', 'success');
+            } else {
+                actions.innerHTML = '<span class="badge" style="background:rgba(255,255,255,0.06);color:var(--text-muted);">Declined</span>';
+                showToast('Ride request declined', 'info');
+            }
+            item.classList.remove('unread');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => renderNotifications());
+    </script>
+</body>
+
+</html>

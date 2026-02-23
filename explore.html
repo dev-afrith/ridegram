@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGram - Explore</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/explore.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
+</head>
+
+<body class="page-body">
+    <div class="container">
+        <div class="app-layout">
+            <!-- SIDEBAR placeholder -->
+            <aside id="global-sidebar"></aside>
+
+            <main>
+                <div class="explore-header animate-slideUpFade">
+                    <div class="search-bar-modern">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search routes, destinations..." id="search-input">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" onclick="filterRides(this,'all')">All Rides</button>
+                        <button class="filter-tab" onclick="filterRides(this,'hills')"><i class="fas fa-mountain"></i>
+                            Hills</button>
+                        <button class="filter-tab" onclick="filterRides(this,'coastal')"><i class="fas fa-water"></i>
+                            Coastal</button>
+                        <button class="filter-tab" onclick="filterRides(this,'city')"><i class="fas fa-city"></i>
+                            City</button>
+                        <button class="filter-tab" onclick="filterRides(this,'night')"><i class="fas fa-moon"></i>
+                            Night</button>
+                        <button class="filter-tab" onclick="filterRides(this,'adventure')"><i
+                                class="fas fa-campground"></i>
+                            Adventure</button>
+                    </div>
+                </div>
+
+                <div class="explore-rides-grid">
+                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.1s;">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600"
+                            class="explore-card-image" alt="Ride">
+                        <div class="explore-card-body">
+                            <h3 class="explore-card-title">Western Ghats Explorer</h3>
+                            <div class="explore-card-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Chennai → Ooty</span>
+                                <span><i class="fas fa-road"></i> 580 km</span>
+                                <span><i class="fas fa-calendar"></i> 3 days</span>
+                            </div>
+                            <div class="explore-card-tags">
+                                <span class="tag tag-primary">Hill Station</span>
+                                <span class="tag">Scenic</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.2s;">
+                        <img src="https://images.unsplash.com/photo-1568772585407-9361bd37ec91?w=600"
+                            class="explore-card-image" alt="Ride">
+                        <div class="explore-card-body">
+                            <h3 class="explore-card-title">Konkan Coastal Dream</h3>
+                            <div class="explore-card-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Mumbai → Goa</span>
+                                <span><i class="fas fa-road"></i> 720 km</span>
+                                <span><i class="fas fa-calendar"></i> 4 days</span>
+                            </div>
+                            <div class="explore-card-tags">
+                                <span class="tag tag-primary">Coastal</span>
+                                <span class="tag">Beach</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.3s;">
+                        <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600"
+                            class="explore-card-image" alt="Ride">
+                        <div class="explore-card-body">
+                            <h3 class="explore-card-title">Bangalore Night Explorer</h3>
+                            <div class="explore-card-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Bangalore City</span>
+                                <span><i class="fas fa-road"></i> 120 km</span>
+                                <span><i class="fas fa-calendar"></i> 1 night</span>
+                            </div>
+                            <div class="explore-card-tags">
+                                <span class="tag tag-primary">Night</span>
+                                <span class="tag">City</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.4s;">
+                        <img src="https://images.unsplash.com/photo-1558980664-769d59546b3d?w=600"
+                            class="explore-card-image" alt="Ride">
+                        <div class="explore-card-body">
+                            <h3 class="explore-card-title">Ladakh Expedition 2025</h3>
+                            <div class="explore-card-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Delhi → Leh</span>
+                                <span><i class="fas fa-road"></i> 4200 km</span>
+                                <span><i class="fas fa-calendar"></i> 20 days</span>
+                            </div>
+                            <div class="explore-card-tags">
+                                <span class="tag tag-primary">Adventure</span>
+                                <span class="tag">Expert</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.5s;">
+                        <img src="https://images.unsplash.com/photo-1590845947670-c009801ffa74?w=600"
+                            class="explore-card-image" alt="Ride">
+                        <div class="explore-card-body">
+                            <h3 class="explore-card-title">Wayanad Off-Road Trail</h3>
+                            <div class="explore-card-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Kochi → Wayanad</span>
+                                <span><i class="fas fa-road"></i> 280 km</span>
+                                <span><i class="fas fa-calendar"></i> 2 days</span>
+                            </div>
+                            <div class="explore-card-tags">
+                                <span class="tag tag-primary">Hills</span>
+                                <span class="tag">Off-road</span>
+                            </div>
+                        </div>
+                </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR placeholder -->
+            <aside class="right-sidebar">
+                <div class="trending-section">
+                    <div class="suggestions-header">
+                        <h4>Popular Routes</h4>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="trending-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <div class="trending-info">
+                            <h5>Manali-Leh</h5><span>4.2k explored</span>
+                        </div>
+                    </div>
+                    <div class="trending-tag">
+                        <div class="trending-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <div class="trending-info">
+                            <h5>Ecr Coastal</h5><span>2.1k explored</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <a href="feed.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="explore.html" class="bottom-nav-item active"><i class="fas fa-search"></i><span>Explore</span></a>
+            <a href="create-ride.html" class="bottom-nav-item create-btn"><i class="fas fa-plus"></i><span></span></a>
+            <a href="notifications.html" class="bottom-nav-item"><i class="fas fa-bell"></i><span>Alerts</span></a>
+            <a href="messages.html" class="bottom-nav-item"><i class="fas fa-comment-dots"></i><span>Chat</span></a>
+        </div>
+    </nav>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/motion.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script>
+        function handleSearch() {
+            const q = document.getElementById('search-input').value.trim();
+            if (q) showToast('Searching for "' + q + '"...', 'info');
+            else showToast('Enter a search term', 'info');
+        }
+
+        function filterRides(btn, type) {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            showToast('Filtering: ' + type.charAt(0).toUpperCase() + type.slice(1), 'info');
+        }
+
+        document.getElementById('search-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') handleSearch();
+        });
+    </script>
+</body>
+
+</html>
