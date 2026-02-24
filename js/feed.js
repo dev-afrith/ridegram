@@ -48,11 +48,11 @@ function createPostCard(post) {
                 <div class="post-username">@${user.username} · ${user.location}</div>
             </div>
             <div class="post-menu-container">
-                <button class="post-menu" onclick="togglePostMenu(this)"><i class="fas fa-ellipsis-h"></i></button>
+                <button class="post-menu" role="button" aria-label="Post options" onclick="togglePostMenu(this)"><i class="fas fa-ellipsis-h"></i></button>
                 <div class="post-menu-dropdown">
-                    <div class="post-menu-item" onclick="showToast('Share link copied!','success')"><i class="fas fa-share-alt"></i> Share</div>
-                    <div class="post-menu-item" onclick="showToast('Post reported','info')"><i class="fas fa-flag"></i> Report</div>
-                    ${user.id === (currentUser ? currentUser.id : 'user_001') ? `<div class="post-menu-item danger" onclick="openDeleteModal('${post.id}')"><i class="fas fa-trash"></i> Delete</div>` : ''}
+                    <div class="post-menu-item" role="button" aria-label="Share post" onclick="openShareModal('${post.id}')"><i class="fas fa-share-alt"></i> Share</div>
+                    <div class="post-menu-item" role="button" aria-label="Report post" onclick="openReportModal('${post.id}')"><i class="fas fa-flag"></i> Report</div>
+                    ${user.id === (currentUser ? currentUser.id : 'user_001') ? `<div class="post-menu-item danger" role="button" aria-label="Delete post" onclick="openDeleteModal('${post.id}')"><i class="fas fa-trash"></i> Delete</div>` : ''}
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@ function createPostCard(post) {
                 <i class="far fa-comment"></i>
                 <span>${formatNum(post.comments)}</span>
             </button>
-            <button class="post-action-btn" onclick="showToast('Shared!','success')">
+            <button class="post-action-btn" role="button" aria-label="Share post" onclick="openShareModal('${post.id}')">
                 <i class="far fa-paper-plane"></i>
             </button>
             <button class="post-action-btn" onclick="this.querySelector('i').classList.toggle('fas');this.querySelector('i').classList.toggle('far');showToast(this.querySelector('i').classList.contains('fas')?'Post saved!':'Post unsaved','info')" style="margin-left:auto;">
@@ -245,7 +245,7 @@ function formatNum(num) {
 }
 
 // ============================================
-// NEW FEATURES: COMMENTS & DELETION
+// POST MENU (three-dot dropdown)
 // ============================================
 let activePostId = null;
 
@@ -257,44 +257,118 @@ function togglePostMenu(btn) {
 }
 window.togglePostMenu = togglePostMenu;
 
+// ============================================
+// DELETE POST
+// ============================================
+let isDeleting = false;
+
 function openDeleteModal(postId) {
     activePostId = postId;
+    // Reset button state
+    const deleteBtn = document.querySelector('#delete-modal .btn-danger-confirm');
+    if (deleteBtn) {
+        deleteBtn.disabled = false;
+        deleteBtn.innerHTML = 'Delete';
+    }
     openModal('delete-modal');
     document.querySelectorAll('.post-menu-dropdown').forEach(d => d.classList.remove('active'));
 }
 window.openDeleteModal = openDeleteModal;
 
-function confirmDelete() {
-    if (!activePostId) return;
-    const postIdx = posts.findIndex(p => p.id === activePostId);
-    if (postIdx > -1) {
-        posts.splice(postIdx, 1);
-        initFeed();
+async function confirmDelete() {
+    if (!activePostId || isDeleting) return;
+    isDeleting = true;
+    const deleteBtn = document.querySelector('#delete-modal .btn-danger-confirm');
+
+    try {
+        // Show loading state
+        if (deleteBtn) {
+            deleteBtn.disabled = true;
+            deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+        }
+
+        // Simulate API call: DELETE /api/posts/:postId
+        await new Promise(resolve => setTimeout(resolve, 800));
+        // In production: await fetch(`/api/posts/${activePostId}`, {
+        //     method: 'DELETE',
+        //     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        // });
+
+        // Remove from data
+        const postIdx = posts.findIndex(p => p.id === activePostId);
+        if (postIdx > -1) posts.splice(postIdx, 1);
+
+        // Remove from DOM without re-rendering entire feed
+        const postCard = document.querySelector(`.post-card[data-post-id="${activePostId}"]`);
+        if (postCard) {
+            postCard.style.transition = 'all 0.4s ease';
+            postCard.style.transform = 'scale(0.9)';
+            postCard.style.opacity = '0';
+            postCard.style.maxHeight = postCard.scrollHeight + 'px';
+            setTimeout(() => {
+                postCard.style.maxHeight = '0';
+                postCard.style.margin = '0';
+                postCard.style.padding = '0';
+                postCard.style.border = 'none';
+            }, 200);
+            setTimeout(() => postCard.remove(), 500);
+        }
+
+        closeModal('delete-modal');
         showToast('Post deleted successfully', 'success');
+    } catch (err) {
+        showToast('Failed to delete post. Try again.', 'error');
+        if (deleteBtn) {
+            deleteBtn.disabled = false;
+            deleteBtn.innerHTML = 'Delete';
+        }
+    } finally {
+        isDeleting = false;
     }
-    closeModal('delete-modal');
 }
 window.confirmDelete = confirmDelete;
 
+// ============================================
+// COMMENTS
+// ============================================
 function openCommentsModal(postId) {
     activePostId = postId;
     const post = posts.find(p => p.id === postId);
     if (!post) return;
 
     const list = document.getElementById('comments-list');
-    // Using dummy comments for demo
-    const dummyComments = [
-        { user: 'ttf_vasan', text: 'Amazing ride! Can I join next time?' },
-        { user: 'ajith_rider15', text: 'The route looks insane. 🏍️' }
-    ];
 
-    list.innerHTML = dummyComments.map(c => `
-        <div style="margin-bottom: 12px; font-size: var(--fs-sm);">
-            <strong>@${c.user}</strong> ${c.text}
+    // Show loading skeleton
+    list.innerHTML = `
+        <div style="display:flex;gap:10px;align-items:start;margin-bottom:16px;">
+            <div class="skeleton" style="width:32px;height:32px;border-radius:50%;flex-shrink:0;"></div>
+            <div style="flex:1;"><div class="skeleton" style="height:14px;width:60%;margin-bottom:6px;"></div><div class="skeleton" style="height:12px;width:90%;"></div></div>
         </div>
-    `).join('');
+        <div style="display:flex;gap:10px;align-items:start;margin-bottom:16px;">
+            <div class="skeleton" style="width:32px;height:32px;border-radius:50%;flex-shrink:0;"></div>
+            <div style="flex:1;"><div class="skeleton" style="height:14px;width:50%;margin-bottom:6px;"></div><div class="skeleton" style="height:12px;width:80%;"></div></div>
+        </div>`;
 
     openModal('comment-modal');
+
+    // Simulate API fetch: GET /api/posts/:postId/comments
+    setTimeout(() => {
+        const dummyComments = [
+            { user: 'ttf_vasan', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60', text: 'Amazing ride! Can I join next time? 🔥', time: '2h ago' },
+            { user: 'ajith_rider15', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60', text: 'The route looks insane. 🏍️', time: '4h ago' },
+            { user: 'priya_rides', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60', text: 'Added to my bucket list!', time: '6h ago' }
+        ];
+
+        list.innerHTML = dummyComments.map(c => `
+            <div style="display:flex;gap:10px;align-items:start;margin-bottom:16px;">
+                <img src="${c.avatar}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="${c.user}">
+                <div>
+                    <div style="font-size:var(--fs-sm);"><strong style="color:var(--text-primary);">@${c.user}</strong> <span style="color:var(--text-secondary);">${c.text}</span></div>
+                    <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">${c.time}</div>
+                </div>
+            </div>
+        `).join('');
+    }, 600);
 }
 window.openCommentsModal = openCommentsModal;
 
@@ -304,13 +378,26 @@ function handleAddComment() {
     if (!text) return;
 
     const list = document.getElementById('comments-list');
+    const user = currentUser || users[0];
     const newComment = document.createElement('div');
-    newComment.style.marginBottom = '12px';
-    newComment.style.fontSize = 'var(--fs-sm)';
-    newComment.innerHTML = `<strong>@${currentUser.username}</strong> ${text}`;
+    newComment.style.cssText = 'display:flex;gap:10px;align-items:start;margin-bottom:16px;animation:fadeIn 0.3s ease;';
+    newComment.innerHTML = `
+        <img src="${user.avatar}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="${user.username}">
+        <div>
+            <div style="font-size:var(--fs-sm);"><strong style="color:var(--text-primary);">@${user.username}</strong> <span style="color:var(--text-secondary);">${text}</span></div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Just now</div>
+        </div>`;
     list.appendChild(newComment);
+    list.scrollTop = list.scrollHeight;
 
-    // Update post count
+    // Simulate API call: POST /api/posts/:postId/comments
+    // In production: await fetch(`/api/posts/${activePostId}/comments`, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    //     body: JSON.stringify({ text })
+    // });
+
+    // Update post comment count
     const post = posts.find(p => p.id === activePostId);
     if (post) post.comments++;
 
@@ -319,9 +406,114 @@ function handleAddComment() {
 }
 window.handleAddComment = handleAddComment;
 
-// Close menus when clicking outside
+// ============================================
+// SHARE POST
+// ============================================
+function openShareModal(postId) {
+    activePostId = postId;
+    document.querySelectorAll('.post-menu-dropdown').forEach(d => d.classList.remove('active'));
+    openModal('share-modal');
+}
+window.openShareModal = openShareModal;
+
+function shareAction(type) {
+    const postUrl = `https://ridegram.com/post/${activePostId}`;
+
+    switch (type) {
+        case 'copy':
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(postUrl).then(() => {
+                    showToast('Link copied to clipboard! 🔗', 'success');
+                }).catch(() => {
+                    showToast('Failed to copy link', 'error');
+                });
+            } else {
+                // Fallback
+                const input = document.createElement('input');
+                input.value = postUrl;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                input.remove();
+                showToast('Link copied to clipboard! 🔗', 'success');
+            }
+            break;
+        case 'whatsapp':
+            window.open(`https://wa.me/?text=Check out this ride on RideGram! ${encodeURIComponent(postUrl)}`, '_blank');
+            showToast('Opening WhatsApp...', 'info');
+            break;
+        case 'twitter':
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(postUrl)}&text=Check out this ride on RideGram! 🏍️`, '_blank');
+            showToast('Opening Twitter/X...', 'info');
+            break;
+    }
+    closeModal('share-modal');
+}
+window.shareAction = shareAction;
+
+// ============================================
+// REPORT POST
+// ============================================
+let isReporting = false;
+
+function openReportModal(postId) {
+    activePostId = postId;
+    document.querySelectorAll('.post-menu-dropdown').forEach(d => d.classList.remove('active'));
+    // Reset button state
+    const reportBtn = document.querySelector('#report-modal .btn-report-confirm');
+    if (reportBtn) {
+        reportBtn.disabled = false;
+        reportBtn.innerHTML = '<i class="fas fa-flag"></i> Report';
+    }
+    openModal('report-modal');
+}
+window.openReportModal = openReportModal;
+
+async function confirmReport() {
+    if (!activePostId || isReporting) return;
+    isReporting = true;
+    const reportBtn = document.querySelector('#report-modal .btn-report-confirm');
+
+    try {
+        if (reportBtn) {
+            reportBtn.disabled = true;
+            reportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Reporting...';
+        }
+
+        // Simulate API call: POST /api/posts/:postId/report
+        await new Promise(resolve => setTimeout(resolve, 800));
+        // In production: await fetch(`/api/posts/${activePostId}/report`, {
+        //     method: 'POST',
+        //     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        // });
+
+        closeModal('report-modal');
+        showToast('Post reported successfully', 'success');
+    } catch (err) {
+        showToast('Failed to report post. Try again.', 'error');
+        if (reportBtn) {
+            reportBtn.disabled = false;
+            reportBtn.innerHTML = '<i class="fas fa-flag"></i> Report';
+        }
+    } finally {
+        isReporting = false;
+    }
+}
+window.confirmReport = confirmReport;
+
+// ============================================
+// CLOSE MENUS ON OUTSIDE CLICK
+// ============================================
 document.addEventListener('click', (e) => {
     if (!e.target.closest('.post-menu-container')) {
         document.querySelectorAll('.post-menu-dropdown').forEach(d => d.classList.remove('active'));
+    }
+});
+
+// Allow comment submit on Enter key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.id === 'comment-input') {
+        e.preventDefault();
+        handleAddComment();
     }
 });

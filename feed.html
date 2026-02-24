@@ -212,9 +212,63 @@
                 <p style="font-size: var(--fs-sm); color: var(--text-secondary); margin-bottom: 24px;">This action
                     cannot be undone. Your post will be permanently removed.</p>
                 <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-secondary btn-full" onclick="closeModal('delete-modal')">Cancel</button>
-                    <button class="btn btn-primary btn-full" style="background: #EF4444; border-color: #EF4444;"
+                    <button class="btn btn-secondary btn-full" style="flex:1;"
+                        onclick="closeModal('delete-modal')">Cancel</button>
+                    <button class="btn btn-primary btn-danger-confirm btn-full"
+                        style="flex:1;background: #EF4444; border-color: #EF4444;"
                         onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHARE MODAL -->
+    <div class="modal-overlay" id="share-modal">
+        <div class="modal" style="max-width: 360px;">
+            <div class="modal-header">
+                <span class="modal-title">Share Post</span>
+                <button class="modal-close" onclick="closeModal('share-modal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" style="padding: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <button class="btn btn-secondary btn-full"
+                        style="justify-content: flex-start; gap: 12px; padding: 14px 16px;"
+                        onclick="shareAction('copy')" role="button" aria-label="Copy link">
+                        <i class="fas fa-link" style="color: var(--primary); font-size: 18px; width: 24px;"></i>
+                        <span>Copy Link</span>
+                    </button>
+                    <button class="btn btn-secondary btn-full"
+                        style="justify-content: flex-start; gap: 12px; padding: 14px 16px;"
+                        onclick="shareAction('whatsapp')" role="button" aria-label="Share to WhatsApp">
+                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 20px; width: 24px;"></i>
+                        <span>WhatsApp</span>
+                    </button>
+                    <button class="btn btn-secondary btn-full"
+                        style="justify-content: flex-start; gap: 12px; padding: 14px 16px;"
+                        onclick="shareAction('twitter')" role="button" aria-label="Share to Twitter">
+                        <i class="fab fa-x-twitter"
+                            style="color: var(--text-primary); font-size: 18px; width: 24px;"></i>
+                        <span>Twitter / X</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORT CONFIRMATION MODAL -->
+    <div class="modal-overlay" id="report-modal">
+        <div class="modal" style="max-width: 320px;">
+            <div class="modal-body" style="padding: 24px; text-align: center;">
+                <div style="font-size: 40px; color: #F59E0B; margin-bottom: 16px;"><i class="fas fa-flag"></i></div>
+                <h3 style="margin-bottom: 8px;">Report this post?</h3>
+                <p style="font-size: var(--fs-sm); color: var(--text-secondary); margin-bottom: 24px;">
+                    This post will be reviewed by our team. False reports may result in action on your account.</p>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary btn-full" style="flex:1;"
+                        onclick="closeModal('report-modal')">Cancel</button>
+                    <button class="btn btn-primary btn-report-confirm btn-full"
+                        style="flex:1;background: #F59E0B; border-color: #F59E0B;" onclick="confirmReport()"><i
+                            class="fas fa-flag"></i> Report</button>
                 </div>
             </div>
         </div>

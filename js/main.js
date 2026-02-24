@@ -215,4 +215,39 @@ class RideGramCore {
 const showToast = (m, t) => RideGramCore.showToast(m, t);
 const initGlobalSidebar = () => RideGramCore.initSidebar();
 
+// ============================================
+// GLOBAL MODAL FUNCTIONS
+// ============================================
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close modal when clicking the overlay background
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('active')) {
+        e.target.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+            m.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+});
+
 document.addEventListener('DOMContentLoaded', () => RideGramCore.init());
