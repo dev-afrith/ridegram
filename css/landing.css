@@ -1,10 +1,10 @@
-/* Landing Page - Dark/Red MotoTribe Style */
+/* Landing Page - Premium Dark/Orange MotoTribe Style */
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
-    background: linear-gradient(135deg, rgba(10, 10, 10, 0.88), rgba(10, 10, 10, 0.65)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop') center/cover no-repeat;
+    background: linear-gradient(135deg, rgba(8, 10, 16, 0.92), rgba(13, 19, 33, 0.75)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop') center/cover no-repeat;
     color: #fff;
     overflow: hidden;
 }
@@ -15,7 +15,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 200px;
+    height: 250px;
     background: linear-gradient(to top, var(--bg-primary), transparent);
     z-index: 1;
 }
@@ -27,7 +27,7 @@
     right: 0;
     width: 60%;
     height: 100%;
-    background: radial-gradient(ellipse at 80% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 80% 50%, rgba(255, 87, 34, 0.15) 0%, transparent 65%);
     pointer-events: none;
 }
 
@@ -41,13 +41,13 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(99, 102, 241, 0.15);
-    backdrop-filter: blur(8px);
+    background: rgba(255, 87, 34, 0.15);
+    backdrop-filter: blur(12px);
     padding: 6px 14px;
     border-radius: var(--radius-full);
     font-size: var(--fs-sm);
     margin-bottom: var(--sp-lg);
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    border: 1px solid rgba(255, 87, 34, 0.3);
     font-weight: var(--fw-medium);
     color: var(--primary-light);
 }
@@ -130,9 +130,9 @@
 }
 
 .navbar-landing.scrolled {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    background: rgba(8, 10, 16, 0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .navbar-landing .navbar-logo,
@@ -258,13 +258,14 @@
     flex-shrink: 0;
     width: 44px;
     height: 44px;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(255, 87, 34, 0.12);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--primary);
     font-size: 18px;
+    box-shadow: inset 0 0 0 1px rgba(255, 87, 34, 0.2);
 }
 
 .feature-content h4 {

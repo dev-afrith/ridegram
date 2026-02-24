@@ -44,7 +44,7 @@
     height: 62px;
     padding: 2px;
     border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--primary), #FF8800, var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), #FFAB40, var(--primary-light));
     margin: 0 auto 4px;
 }
 
@@ -81,14 +81,14 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
     margin: 8px 16px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .post-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--border-hover);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 87, 34, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .post-header {
@@ -144,7 +144,7 @@
 .post-rating-stars {
     display: flex;
     gap: 2px;
-    color: #F59E0B;
+    color: #FFC107;
     font-size: 12px;
 }
 
@@ -161,7 +161,7 @@
 
 /* Ride Summary */
 .post-ride-summary {
-    background: rgba(99, 102, 241, 0.04);
+    background: rgba(255, 87, 34, 0.05);
     padding: 10px 14px;
     margin: 0 14px 8px;
     border-radius: var(--radius-md);
@@ -261,7 +261,8 @@
 }
 
 .post-action-btn.liked {
-    color: var(--primary);
+    color: #FF1744;
+    /* Neon Red for likes */
 }
 
 .post-action-btn.liked i {
