@@ -179,7 +179,7 @@
                     </div>
                     <div class="settings-section">
                         <div class="settings-section-title">Support</div>
-                        <div class="settings-link" onclick="showToast('Help Center coming soon','info')">
+                        <div class="settings-link" onclick="RideGramCore.toggleModal('help-modal', true)">
                             <i class="fas fa-question-circle"></i>
                             <span>Help Center</span><i class="fas fa-chevron-right link-arrow"></i>
                         </div>
@@ -203,6 +203,40 @@
                             onclick="if(confirm('This action cannot be undone. Delete your account?')){showToast('Account deletion request submitted','info');}">
                             <i class="fas fa-trash settings-danger"></i>
                             <span class="settings-danger">Delete Account</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Help Center Modal -->
+                <div id="help-modal" class="modal">
+                    <div class="overlay" data-modal-close="help-modal"></div>
+                    <div class="modal-content" style="max-width:400px;">
+                        <div class="modal-header">
+                            <h3>Help Center</h3>
+                            <button class="close-modal" data-modal-close="help-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin-bottom:20px;">
+                                <h4 style="margin-bottom:8px;color:var(--primary);">FAQs</h4>
+                                <ul style="list-style:none;font-size:var(--fs-sm);color:var(--text-secondary);">
+                                    <li style="margin-bottom:10px;">• How do I join a ride? - Click 'Join' on any ride
+                                        post.</li>
+                                    <li style="margin-bottom:10px;">• Can I create my own ride? - Yes, use the '+'
+                                        button.</li>
+                                    <li style="margin-bottom:10px;">• How to report a user? - Contact
+                                        support@ridegram.com.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom:8px;color:var(--primary);">Contact Support</h4>
+                                <p style="font-size:var(--fs-sm);color:var(--text-secondary);">Email:
+                                    support@ridegram.com</p>
+                                <p style="font-size:var(--fs-sm);color:var(--text-secondary);">Response time: < 24
+                                        hrs</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary btn-full" data-modal-close="help-modal">Got it</button>
                         </div>
                     </div>
                 </div>

@@ -106,7 +106,7 @@ class RideGramCore {
     }
 
     static applyVisualHaptic(el) {
-        el.style.transform = 'scale(0.95)';
+        el.style.transform = 'scale(0.98)';
         el.style.transition = 'transform 0.1s var(--spring-ease)';
         setTimeout(() => {
             el.style.transform = '';
@@ -129,7 +129,7 @@ class RideGramCore {
         }
 
         // Advanced haptic-like scaling animation
-        btn.style.transform = 'scale(1.2)';
+        btn.style.transform = 'scale(1.05)';
         setTimeout(() => btn.style.transform = '', 150);
     }
 

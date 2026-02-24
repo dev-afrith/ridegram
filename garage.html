@@ -104,9 +104,53 @@
                     </div>
 
                     <button class="add-bike-btn animate-slideUpFade" style="animation-delay: 0.4s;"
-                        onclick="showToast('Add bike feature coming soon!','info')">
+                        onclick="RideGramCore.toggleModal('bike-modal', true)">
                         <i class="fas fa-plus"></i> Add Another Bike
                     </button>
+                </div>
+
+                <!-- Add Bike Modal -->
+                <div id="bike-modal" class="modal">
+                    <div class="overlay" data-modal-close="bike-modal"></div>
+                    <div class="modal-content" style="max-width:400px;">
+                        <div class="modal-header">
+                            <h3>Add New Bike</h3>
+                            <button class="close-modal" data-modal-close="bike-modal">&times;</button>
+                        </div>
+                        <form id="add-bike-form">
+                            <div class="modal-body">
+                                <div style="margin-bottom:16px;">
+                                    <label
+                                        style="display:block;margin-bottom:6px;font-size:var(--fs-xs);color:var(--text-muted);">Bike
+                                        Model</label>
+                                    <input type="text" placeholder="e.g. BMW R1250GS"
+                                        style="width:100%;padding:10px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-md);color:var(--text-primary);"
+                                        required>
+                                </div>
+                                <div style="margin-bottom:16px;">
+                                    <label
+                                        style="display:block;margin-bottom:6px;font-size:var(--fs-xs);color:var(--text-muted);">Engine
+                                        CC</label>
+                                    <input type="number" placeholder="e.g. 1250"
+                                        style="width:100%;padding:10px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-md);color:var(--text-primary);"
+                                        required>
+                                </div>
+                                <div style="margin-bottom:16px;">
+                                    <label
+                                        style="display:block;margin-bottom:6px;font-size:var(--fs-xs);color:var(--text-muted);">Year</label>
+                                    <input type="number" placeholder="e.g. 2024"
+                                        style="width:100%;padding:10px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-md);color:var(--text-primary);"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-modal-close="bike-modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add Bike</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </main>
 
             <!-- RIGHT SIDEBAR placeholder -->

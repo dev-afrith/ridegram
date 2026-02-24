@@ -174,9 +174,47 @@
                     <div class="join-modal-ride" id="join-modal-ride-info"></div>
                     <div class="join-modal-actions">
                         <button class="btn btn-secondary" onclick="closeModal('join-modal')">Cancel</button>
-                        <button class="btn btn-primary" onclick="confirmJoinRequest()"><i
+                        <button class="btn btn-primary" onclick="window.confirmJoinRequest()"><i
                                 class="fas fa-paper-plane"></i> Send Request</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMENT MODAL -->
+    <div class="modal-overlay" id="comment-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">Comments</span>
+                <button class="modal-close" onclick="closeModal('comment-modal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" style="padding: 0;">
+                <div id="comments-list" style="max-height: 400px; overflow-y: auto; padding: 16px;">
+                    <!-- Comments rendered here -->
+                </div>
+                <div style="padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 8px;">
+                    <input type="text" id="comment-input" placeholder="Add a comment..."
+                        style="flex: 1; padding: 10px; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-full); color: var(--text-primary);">
+                    <button class="btn btn-primary btn-sm" onclick="handleAddComment()">Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELETE CONFIRMATION MODAL -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal" style="max-width: 320px;">
+            <div class="modal-body" style="padding: 24px; text-align: center;">
+                <div style="font-size: 40px; color: #EF4444; margin-bottom: 16px;"><i
+                        class="fas fa-exclamation-circle"></i></div>
+                <h3 style="margin-bottom: 8px;">Delete Post?</h3>
+                <p style="font-size: var(--fs-sm); color: var(--text-secondary); margin-bottom: 24px;">This action
+                    cannot be undone. Your post will be permanently removed.</p>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary btn-full" onclick="closeModal('delete-modal')">Cancel</button>
+                    <button class="btn btn-primary btn-full" style="background: #EF4444; border-color: #EF4444;"
+                        onclick="confirmDelete()">Delete</button>
                 </div>
             </div>
         </div>

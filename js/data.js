@@ -142,7 +142,8 @@ const rides = [
         summary: {
             from: 'Chennai', to: 'Ooty', fromState: 'TN', toState: 'TN',
             routeName: 'Chennai → Krishnagiri → Dharmapuri → Ooty', totalKm: 580, days: 3,
-            dateRange: 'Jan 25 - Jan 27, 2024'
+            dateRange: 'Jan 25 - Jan 27, 2024',
+            description: 'Experience the breathtaking beauty of the Western Ghats. This ride takes you through winding mountain roads, lush tea gardens, and misty hills. Perfect for those who love scenic routes and cool climates.'
         },
         fullDetails: {
             dailyPlan: [
@@ -161,7 +162,8 @@ const rides = [
         summary: {
             from: 'Hyderabad', to: 'Gokarna', fromState: 'TS', toState: 'KA',
             routeName: 'Hyderabad → Bijapur → Hubli → Gokarna', totalKm: 720, days: 4,
-            dateRange: 'Feb 10 - Feb 13, 2024'
+            dateRange: 'Feb 10 - Feb 13, 2024',
+            description: 'A dream ride along the Konkan coast. Enjoy the salty breeze, pristine beaches, and delicious coastal cuisine. The route offers a mix of smooth highways and beautiful seaside roads.'
         },
         fullDetails: {
             dailyPlan: [
@@ -179,7 +181,8 @@ const rides = [
         summary: {
             from: 'Mumbai', to: 'Leh', fromState: 'MH', toState: 'LA',
             routeName: 'Mumbai → Delhi → Manali → Leh', totalKm: 4200, days: 20,
-            dateRange: 'Jun 1 - Jun 20, 2024'
+            dateRange: 'Jun 1 - Jun 20, 2024',
+            description: 'The ultimate bucket-list ride for every biker. Conquer the highest motorable passes, witness the stark beauty of the cold desert, and push your limits in this epic 20-day expedition.'
         },
         fullDetails: {
             totalBudget: '₹80,000 - ₹1,00,000',

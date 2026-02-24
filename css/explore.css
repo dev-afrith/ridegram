@@ -161,3 +161,64 @@
     display: flex;
     gap: 6px;
 }
+
+/* Modal Enhancements */
+.ride-modal-content {
+    max-width: 500px;
+    width: 90%;
+    padding: 0;
+    overflow: hidden;
+}
+
+.modal-hero-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    margin-bottom: 20px;
+}
+
+.modal-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+    background: var(--bg-elevated);
+    padding: 12px;
+    border-radius: var(--radius-lg);
+}
+
+.modal-info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.modal-info-item i {
+    color: var(--primary);
+    font-size: var(--fs-lg);
+}
+
+.modal-info-item span {
+    color: var(--text-primary);
+    font-weight: var(--fw-semibold);
+    text-align: center;
+}
+
+.modal-description-section h4 {
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.modal-description-section p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: var(--fs-sm);
+}
+
+.btn-full {
+    width: 100%;
+}

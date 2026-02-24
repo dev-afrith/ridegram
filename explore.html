@@ -42,7 +42,8 @@
                 </div>
 
                 <div class="explore-rides-grid">
-                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.1s;">
+                    <div class="explore-card animate-slideUpFade" style="animation-delay: 0.1s;"
+                        onclick="openRideDetails('ride_001')">
                         <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600"
                             class="explore-card-image" alt="Ride">
                         <div class="explore-card-body">
@@ -57,9 +58,10 @@
                                 <span class="tag">Scenic</span>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.2s;">
+                    <div class="explore-card animate-slideUpFade" style="animation-delay: 0.2s;"
+                        onclick="openRideDetails('ride_002')">
                         <img src="https://images.unsplash.com/photo-1568772585407-9361bd37ec91?w=600"
                             class="explore-card-image" alt="Ride">
                         <div class="explore-card-body">
@@ -74,7 +76,7 @@
                                 <span class="tag">Beach</span>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
                     <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.3s;">
                         <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600"
@@ -93,7 +95,8 @@
                         </div>
                     </a>
 
-                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.4s;">
+                    <div class="explore-card animate-slideUpFade" style="animation-delay: 0.4s;"
+                        onclick="openRideDetails('ride_004')">
                         <img src="https://images.unsplash.com/photo-1558980664-769d59546b3d?w=600"
                             class="explore-card-image" alt="Ride">
                         <div class="explore-card-body">
@@ -108,9 +111,10 @@
                                 <span class="tag">Expert</span>
                             </div>
                         </div>
-                    </a>
+                    </div>
 
-                    <a href="feed.html" class="explore-card animate-slideUpFade" style="animation-delay: 0.5s;">
+                    <div class="explore-card animate-slideUpFade" style="animation-delay: 0.5s;"
+                        onclick="openRideDetails('ride_005')">
                         <img src="https://images.unsplash.com/photo-1590845947670-c009801ffa74?w=600"
                             class="explore-card-image" alt="Ride">
                         <div class="explore-card-body">
@@ -125,7 +129,44 @@
                                 <span class="tag">Off-road</span>
                             </div>
                         </div>
+                    </div>
                 </div>
+
+                <!-- Ride Details Modal -->
+                <div id="ride-details-modal" class="modal">
+                    <div class="overlay" data-modal-close="ride-details-modal"></div>
+                    <div class="modal-content ride-modal-content">
+                        <div class="modal-header">
+                            <h3 id="modal-ride-title">Ride Title</h3>
+                            <button class="close-modal" data-modal-close="ride-details-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <img id="modal-ride-image" src="" alt="Ride Image" class="modal-hero-image">
+                            <div class="modal-details-grid">
+                                <div class="modal-info-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span id="modal-ride-route">Route Info</span>
+                                </div>
+                                <div class="modal-info-item">
+                                    <i class="fas fa-road"></i>
+                                    <span id="modal-ride-km">Km</span>
+                                </div>
+                                <div class="modal-info-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="modal-ride-days">Days</span>
+                                </div>
+                            </div>
+                            <div class="modal-description-section">
+                                <h4>Description</h4>
+                                <p id="modal-ride-description">Ride description goes here...</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="feed.html" class="btn btn-primary btn-full">View Discussion & Join</a>
+                        </div>
+                    </div>
+                </div>
+
             </main>
 
             <!-- RIGHT SIDEBAR placeholder -->
@@ -176,6 +217,26 @@
             document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
             showToast('Filtering: ' + type.charAt(0).toUpperCase() + type.slice(1), 'info');
+        }
+
+        function openRideDetails(rideId) {
+            const ride = typeof getRideById === 'function' ? getRideById(rideId) : null;
+            if (!ride) {
+                showToast('Ride details not found', 'error');
+                return;
+            }
+
+            document.getElementById('modal-ride-title').innerText = ride.title;
+            // Get image from corresponding post if possible, or use a default/placeholder
+            const ridePost = typeof posts !== 'undefined' ? posts.find(p => p.rideId === rideId) : null;
+            document.getElementById('modal-ride-image').src = ridePost ? ridePost.image : 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800';
+
+            document.getElementById('modal-ride-route').innerText = ride.summary.routeName;
+            document.getElementById('modal-ride-km').innerText = ride.summary.totalKm + ' km';
+            document.getElementById('modal-ride-days').innerText = ride.summary.days + ' days';
+            document.getElementById('modal-ride-description').innerText = ride.summary.description || 'No description available for this ride yet.';
+
+            RideGramCore.toggleModal('ride-details-modal', true);
         }
 
         document.getElementById('search-input').addEventListener('keypress', function (e) {

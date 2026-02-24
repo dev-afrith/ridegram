@@ -47,7 +47,14 @@ function createPostCard(post) {
                 </div>
                 <div class="post-username">@${user.username} · ${user.location}</div>
             </div>
-            <button class="post-menu" onclick="showToast('Post options coming soon','info')"><i class="fas fa-ellipsis-h"></i></button>
+            <div class="post-menu-container">
+                <button class="post-menu" onclick="togglePostMenu(this)"><i class="fas fa-ellipsis-h"></i></button>
+                <div class="post-menu-dropdown">
+                    <div class="post-menu-item" onclick="showToast('Share link copied!','success')"><i class="fas fa-share-alt"></i> Share</div>
+                    <div class="post-menu-item" onclick="showToast('Post reported','info')"><i class="fas fa-flag"></i> Report</div>
+                    ${user.id === (currentUser ? currentUser.id : 'user_001') ? `<div class="post-menu-item danger" onclick="openDeleteModal('${post.id}')"><i class="fas fa-trash"></i> Delete</div>` : ''}
+                </div>
+            </div>
         </div>
 
         ${ride ? `
@@ -74,7 +81,7 @@ function createPostCard(post) {
                 <i class="${post.isLiked ? 'fas' : 'far'} fa-heart"></i>
                 <span class="like-count">${formatNum(post.likes)}</span>
             </button>
-            <button class="post-action-btn" onclick="showToast('Comments coming soon','info')">
+            <button class="post-action-btn" onclick="openCommentsModal('${post.id}')">
                 <i class="far fa-comment"></i>
                 <span>${formatNum(post.comments)}</span>
             </button>
@@ -236,3 +243,85 @@ function formatNum(num) {
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
     return num.toString();
 }
+
+// ============================================
+// NEW FEATURES: COMMENTS & DELETION
+// ============================================
+let activePostId = null;
+
+function togglePostMenu(btn) {
+    const dropdown = btn.nextElementSibling;
+    const allDropdowns = document.querySelectorAll('.post-menu-dropdown');
+    allDropdowns.forEach(d => { if (d !== dropdown) d.classList.remove('active'); });
+    dropdown.classList.toggle('active');
+}
+window.togglePostMenu = togglePostMenu;
+
+function openDeleteModal(postId) {
+    activePostId = postId;
+    openModal('delete-modal');
+    document.querySelectorAll('.post-menu-dropdown').forEach(d => d.classList.remove('active'));
+}
+window.openDeleteModal = openDeleteModal;
+
+function confirmDelete() {
+    if (!activePostId) return;
+    const postIdx = posts.findIndex(p => p.id === activePostId);
+    if (postIdx > -1) {
+        posts.splice(postIdx, 1);
+        initFeed();
+        showToast('Post deleted successfully', 'success');
+    }
+    closeModal('delete-modal');
+}
+window.confirmDelete = confirmDelete;
+
+function openCommentsModal(postId) {
+    activePostId = postId;
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+
+    const list = document.getElementById('comments-list');
+    // Using dummy comments for demo
+    const dummyComments = [
+        { user: 'ttf_vasan', text: 'Amazing ride! Can I join next time?' },
+        { user: 'ajith_rider15', text: 'The route looks insane. 🏍️' }
+    ];
+
+    list.innerHTML = dummyComments.map(c => `
+        <div style="margin-bottom: 12px; font-size: var(--fs-sm);">
+            <strong>@${c.user}</strong> ${c.text}
+        </div>
+    `).join('');
+
+    openModal('comment-modal');
+}
+window.openCommentsModal = openCommentsModal;
+
+function handleAddComment() {
+    const input = document.getElementById('comment-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const list = document.getElementById('comments-list');
+    const newComment = document.createElement('div');
+    newComment.style.marginBottom = '12px';
+    newComment.style.fontSize = 'var(--fs-sm)';
+    newComment.innerHTML = `<strong>@${currentUser.username}</strong> ${text}`;
+    list.appendChild(newComment);
+
+    // Update post count
+    const post = posts.find(p => p.id === activePostId);
+    if (post) post.comments++;
+
+    input.value = '';
+    showToast('Comment posted!', 'success');
+}
+window.handleAddComment = handleAddComment;
+
+// Close menus when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.post-menu-container')) {
+        document.querySelectorAll('.post-menu-dropdown').forEach(d => d.classList.remove('active'));
+    }
+});
